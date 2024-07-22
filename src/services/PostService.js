@@ -4,11 +4,21 @@ import { logger } from "../utils/Logger.js"
 import { api } from "./AxiosService.js"
 
 class PostService {
-    changepageV2(url) {
-        throw new Error('Method not implemented.')
+    async changepageV2(url) {
+        const response = await api.get(url)
+        console.log('url of changepage', response.data);
+        const posts = response.data.posts.map(postsData => new Post(postsData))
+        AppState.posts = posts
+        AppState.currentPage = response.data.page
     }
-    changePage(pagenumber) {
-        throw new Error('Method not implemented.')
+    async changePage(pagenumber) {
+        const response = await api.get(`api/posts?page=${pagenumber}`)
+        console.log("posts page", response.data)
+        const posts = response.data.posts.map(postsData => new Post(postsData))
+        AppState.posts = posts
+        AppState.currentPage = response.data.page
+        // AppState.totalPages = response.total_Pages
+
     }
     async createPost(postData) {
         const response = await api.post("api/posts", postData)
@@ -21,6 +31,7 @@ class PostService {
         logger.log('getting posts', response.data)
         const posts = response.data.posts.map(pojo => new Post(pojo))
         AppState.posts = posts
+        AppState.currentPage = response.data.page
     }
 
     async getPostsByProfileId(profileId) {

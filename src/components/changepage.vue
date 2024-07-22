@@ -32,9 +32,12 @@ async function changePagev2(url) {
 
 <template>
     <section class="row justify-content-between my-2">
-        <button class="col-3 btn btn-primary"><i class="mdi mdi-arrow-left"></i>Old posts</button>
+        <button :disabled="currentPage == 1" @click="changePage(currentPage - 1)" class="col-3 btn btn-primary"><i
+                class="mdi mdi-arrow-left"></i>New posts</button>
         <div class="col-3">{{ currentPage }} of {{ totalPage }}</div>
-        <button class="col-3 btn btn-primary"><i class="mdi mdi-arrow-right"></i>New posts</button>
+        <button @click="changePage(currentPage + 1)" class="col-3 btn btn-primary"><i
+                class="mdi mdi-arrow-right"></i>Old
+            posts</button>
     </section>
 </template>
 
