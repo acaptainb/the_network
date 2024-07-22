@@ -7,6 +7,8 @@ import { adService } from '../services/AdsService.js';
 import Changepage from '../components/changepage.vue';
 const posts = computed(() => AppState.posts)
 const ads = computed(() => AppState.ads)
+
+const account = computed(() => AppState.account)
 onMounted(() => {
   getPost()
   getAds()
@@ -55,7 +57,7 @@ async function getPost() {
       </div>
       <div class="col-md-6">
         <div class="row">
-          <form @submit.prevent="createPost()">
+          <form v-if="account" @submit.prevent="createPost()">
             <div class="form-floating mb-3">
               <input v-model="postData.body" type="text" class="form-control" id="body" placeholder="Create port..."
                 required maxlength="500">
