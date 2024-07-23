@@ -15,13 +15,19 @@ const account = computed(() => AppState.account)
         <p>{{ account.email }}</p>
         <p>{{ account.bio }}</p>
         <p>{{ account.class }}</p>
-        <p>{{ account.github }}</p>
-        <p>{{ account.linkedin }}</p>
+        <!-- <p>{{ account.github }}</p>
+        <p>{{ account.linkedin }}</p> -->
+        <a :href="account.github" v-if="account.github">
+          <i class="mdi mdi-github fs-5"></i>
+        </a>
+        <a :href="account.linkedin" v-if="account.linkedin">
+          <i class="mdi mdi-linkedin fs-5"></i>
+        </a>
         <div v-if="account.graduated == true">
           <p>Graduated <i class="mdi mdi-account-school"></i></p>
         </div>
         <div v-else="account.graduated!= true">
-          <p>not gratuated</p>
+          <p>Not gratuated</p>
         </div>
       </div>
       <div class="container">

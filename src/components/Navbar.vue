@@ -22,7 +22,8 @@ function toggleTheme() {
   <nav class="navbar navbar-expand-sm navbar-dark bg-dark px-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
-        <img alt="logo" src="../assets/img/cw-logo.png" height="45" />
+        <!-- <i class="mdi mdi-network"></i> -->
+        <p class="fw-italic fs-4"> <i class="mdi mdi-network"></i>The_Network</p>
       </div>
     </router-link>
 
