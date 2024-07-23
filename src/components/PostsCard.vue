@@ -55,8 +55,7 @@ async function removePost(postId) {
                     <!-- v-if="account.id == postsProp.creatorId" -->
                     <div v-if="account?.id == postsProp.creatorId" class="col-md-2 col-4 p-2 mb-5">
                         <div class="dropdown text-center">
-                            <button class="btn btn-light " type="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
+                            <button class="btn  " type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="mdi mdi-dots-horizontal "></i>
                             </button>
                             <ul class="dropdown-menu">

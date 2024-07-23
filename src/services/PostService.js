@@ -17,7 +17,7 @@ class PostService {
         const response = await api.delete(`api/posts/${postId}`)
         console.log('post destroyed');
         const postIndex = AppState.posts.findIndex(post => post.id == postId)
-        if (postIndex == -1) throw new Error("You messed up on findIndex,")
+        // if (postIndex == -1) throw new Error("You messed up on findIndex,")
         AppState.posts.splice(postIndex, 1)
     }
     async searchpost(searchingFor) {
