@@ -6,6 +6,7 @@ import { useRoute } from 'vue-router';
 import { logger } from '../utils/Logger.js';
 import { AppState } from '../AppState.js';
 import { postService } from '../services/PostService.js';
+import Changepage from '../components/changepage.vue';
 
 const profile = computed(() => AppState.profile)
 
@@ -41,6 +42,7 @@ async function getPostsById(profileId) {
 <template>
     <div v-if="profile" class="container">
         <section class="row border">
+            <Changepage />
             <div class="col-12">
                 <div class="justify-content-start d-flex cover-img ">
                     <img :src="profile.picture" :alt="profile.name" class="profile-img rounded-circle pt-5 px-4">

@@ -4,12 +4,22 @@ import { logger } from "../utils/Logger.js"
 import { api } from "./AxiosService.js"
 
 class PostService {
-    async changepageV2(url) {
-        const response = await api.get(url)
-        console.log('url of changepage', response.data);
-        const posts = response.data.posts.map(postsData => new Post(postsData))
-        AppState.posts = posts
+    async deletepost(postId) {
+        const response = await api.delete(`api/posts/${postId}`)
+        console.log('post destroyed', response.data);
+        const postIndex = AppState.posts.findIndex(post => post.id == postId)
+        if (postIndex == -1) throw new Error("You messed up on findIndex,")
+        AppState.posts.splice(postIndex, 1)
+    }
+    async searchpost(searchingFor) {
+        const response = await api.get(`api/posts?query=${searchingFor}`)
+        console.log('search resuls', response.data);
+        const searched = response.data.posts.map(searchData => new Post(searchData))
+        AppState.searchingFor = searchingFor
+        AppState.posts = searched
         AppState.currentPage = response.data.page
+        AppState.totalPages = response.data.totalPages
+
     }
     async changePage(pagenumber) {
         const response = await api.get(`api/posts?page=${pagenumber}`)
@@ -17,7 +27,7 @@ class PostService {
         const posts = response.data.posts.map(postsData => new Post(postsData))
         AppState.posts = posts
         AppState.currentPage = response.data.page
-        // AppState.totalPages = response.total_Pages
+        AppState.totalPages = response.data.totalPages
 
     }
     async createPost(postData) {
@@ -32,6 +42,7 @@ class PostService {
         const posts = response.data.posts.map(pojo => new Post(pojo))
         AppState.posts = posts
         AppState.currentPage = response.data.page
+        AppState.totalPages = response.data.totalPages
     }
 
     async getPostsByProfileId(profileId) {
@@ -40,6 +51,8 @@ class PostService {
         logger.log('GOT PROJECTS BY PROFILE ID🕴️🖼️🖼️🖼️', response.data)
         const posts = response.data.posts.map(pojo => new Post(pojo))
         AppState.profilePosts = posts
+        AppState.currentPage = response.data.page
+        AppState.totalPages = response.data.totalPages
     }
 
 }

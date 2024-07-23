@@ -52,32 +52,38 @@ async function getPost() {
 <template>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-3">
-        <ProfileCard />
+      <div class="col-12">
+        <Changepage />
       </div>
-      <div class="col-md-6">
-        <div class="row">
-          <form v-if="account" @submit.prevent="createPost()">
-            <div class="form-floating mb-3">
-              <input v-model="postData.body" type="text" class="form-control" id="body" placeholder="Create port..."
-                required maxlength="500">
-              <label for="body">Create post</label>
-              <input v-model="postData.imgUrl" type="url" class="form-control" id="imgUrl" placeholder="Create img..."
-                required maxlength="500">
+      <div class="row">
+
+        <div class="col-3">
+          <ProfileCard />
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <form v-if="account" @submit.prevent="createPost()">
+              <div class="form-floating mb-3">
+                <input v-model="postData.body" type="text" class="form-control" id="body" placeholder="Create port..."
+                  required maxlength="500">
+                <label for="body">Create post</label>
+                <input v-model="postData.imgUrl" type="url" class="form-control" id="imgUrl" placeholder="Create img..."
+                  required maxlength="500">
+              </div>
+              <div class="text-end">
+                <button class="btn btn-dark" type="submit">Submit</button>
+              </div>
+            </form>
+            <div v-for="post in posts" :key="post.id" class="col-12">
+              <PostsCard :postsProp="post" />
             </div>
-            <div class="text-end">
-              <button class="btn btn-dark" type="submit">Submit</button>
-            </div>
-          </form>
-          <div v-for="post in posts" :key="post.id" class="col-12">
-            <PostsCard :postsProp="post" />
           </div>
         </div>
-      </div>
-      <div class="col-3">
-        <div class="row">
-          <div v-for="ad in ads" :key="ad.title" class="col-12 my-4">
-            <img :src="ad.tall" alt="">
+        <div class="col-3">
+          <div class="row">
+            <div v-for="ad in ads" :key="ad.title" class="col-12 my-4">
+              <img :src="ad.tall" alt="">
+            </div>
           </div>
         </div>
       </div>

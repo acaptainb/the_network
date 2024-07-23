@@ -18,15 +18,6 @@ async function changePage(pagenumber) {
     }
 }
 
-async function changePagev2(url) {
-    try {
-        logger.log(url)
-        await postService.changepageV2(url)
-    }
-    catch (error) {
-        Pop.error(error);
-    }
-}
 </script>
 
 

@@ -12,6 +12,8 @@ class ProfilesService {
         logger.log('GOT PROFILE 🕴️', response.data)
         const profile = new Profile(response.data)
         AppState.profile = profile
+        AppState.currentPage = response.data.page
+        AppState.totalPages = response.data.totalPages
     }
 }
 
