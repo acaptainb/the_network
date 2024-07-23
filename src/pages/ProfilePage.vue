@@ -59,9 +59,15 @@ async function getPostsById(profileId) {
                 </div>
                 <div class="pt-5 mt-5">
                     <p>{{ profile.bio }}</p>
-                    <p>{{ profile.github }}</p>
+                    <!-- <p>{{ profile.github }}</p> -->
+                    <a :href="profile.github" v-if="profile.github">
+                        <i class="mdi mdi-github"></i>
+                    </a>
+                    <a :href="profile.linkedin" v-if="profile.linkedin">
+                        <i class="mdi mdi-linkedin"></i>
+                    </a>
                     <p>{{ profile.class }}</p>
-                    <p>{{ profile.linkedin }}</p>
+                    <!-- <p>{{ profile.linkedin }}</p> -->
                 </div>
             </div>
         </section>

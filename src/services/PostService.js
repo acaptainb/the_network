@@ -4,9 +4,18 @@ import { logger } from "../utils/Logger.js"
 import { api } from "./AxiosService.js"
 
 class PostService {
+    async userInLike(post) {
+
+    }
+
+    async likeposts(postId) {
+        const res = await api.post(`/api/posts/${postId}/like`)
+        const postIndex = AppState.posts.findIndex(p => p.id == res.data.id)
+        AppState.posts[postIndex].likeIds = res.data.likeIds
+    }
     async deletepost(postId) {
         const response = await api.delete(`api/posts/${postId}`)
-        console.log('post destroyed', response.data);
+        console.log('post destroyed');
         const postIndex = AppState.posts.findIndex(post => post.id == postId)
         if (postIndex == -1) throw new Error("You messed up on findIndex,")
         AppState.posts.splice(postIndex, 1)

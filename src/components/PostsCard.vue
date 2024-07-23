@@ -14,6 +14,22 @@ defineProps({
     postsProp: { type: Post, required: true }
 })
 
+async function userInLike(post) {
+    const userId = AppState.account.id
+    const postLiked = post.likeIds.findIndex(p => p == userId)
+    if (postLiked == -1) return false
+    return true
+}
+
+async function likePost(postId) {
+    try {
+        await postService.likeposts(postId)
+    }
+    catch (error) {
+        Pop.error(error);
+    }
+}
+
 async function removePost(postId) {
     try {
         const wantsToDelete = await Pop.confirm('Are you sure you want to delete your post?')
@@ -36,8 +52,8 @@ async function removePost(postId) {
                         :title="`Go to ${postsProp.creator.name}'s page.`">
                         <img class="pfp selectable" :src="postsProp.creator.picture" :alt="postsProp.creator.name">
                     </RouterLink>
-
-                    <div v-if="account.id == postsProp.creatorId" class="col-md-2 col-4 p-2 mb-5">
+                    <!-- v-if="account.id == postsProp.creatorId" -->
+                    <div v-if="account?.id == postsProp.creatorId" class="col-md-2 col-4 p-2 mb-5">
                         <div class="dropdown text-center">
                             <button class="btn btn-light " type="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
@@ -65,8 +81,21 @@ async function removePost(postId) {
                 <img class="img-fluid" :src="postsProp.imgUrl" :alt="postsProp.body">
             </div>
             <div class="text-end">
-                <i class="mdi mdi-heart"></i>
-                <p>{{ postsProp.likes.length }}</p>
+                <div>
+                    <div v-if="account" @click="likePost(postsProp.id)">
+                        <div class="number">
+                            {{ postsProp.likes.length }}
+                        </div>
+                        <div class="icon">
+                            <i class="mdi mdi-heart" v-if="userInLike(posts)"></i>
+                            <i class="mdi mdi-heart-outline" v-else></i>
+                        </div>
+                        <div v-if="!account">
+                            <i class="mdi mdi-heart"></i>
+                            <p>{{ postsProp.likes.length }}</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
